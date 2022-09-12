@@ -33,9 +33,11 @@ Find ~simple-easy-clojure-hello~ and Ret to run the command.
 
 After a bit a cider repl buffer should pop up.
 Now checkout the file =hello.clj=.
-Use ~cider-eval-defun-at-point~ and ~cider-eval-last-sexp~ to eval code.
+Here are your spaceships controls:
 
-
+~cider-eval-defun-at-point~ ~C-M-x~ (that is ctrl + alt + x)
+~cider-eval-last-sexp~ ~C-x C-e~
+~cider-load-file~ ~C-c C-l~
 
 * Principles
 

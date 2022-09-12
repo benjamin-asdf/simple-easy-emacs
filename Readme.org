@@ -32,6 +32,7 @@ After emacs startup up, use `M-x` (that is alt + x) type ~simple ~.
 Find ~simple-easy-clojure-hello~ and Ret to run the command.
 
 After a bit a cider repl buffer should pop up.
+If you lost where you are type ~C-x b~ to get a list of current buffers
 Now checkout the file =hello.clj=.
 Here are your spaceships controls:
 

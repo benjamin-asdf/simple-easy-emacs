@@ -1,11 +1,11 @@
 I wanted a config that I can give to a beginner and the just have an
-emacs running with clojure setup.
+Emacs running with Clojure setup.
 
 * Usage
 
-** As your mean emacs config
+** As your main Emacs config
 
-If you do not have an emacs config yet and you want to start out with
+If you do not have an Emacs config yet and you want to start out with
 =simple-easy-emacs= :
 
 
@@ -14,7 +14,7 @@ If you do not have an emacs config yet and you want to start out with
   git clone https://github.com/benjamin-asdf/simple-easy-emacs.git .emacs.d
 #+end_src
 
-run emacs!
+run Emacs!
 
 ** Just run it without changing your real config
 
@@ -28,7 +28,7 @@ run emacs!
 
 First time takes a bit and are some (comp) warnings, this is fine.
 
-After emacs startup up, use `M-x` (that is alt + x) type ~simple ~.
+After Emacs startup up, use `M-x` (that is alt + x) type ~simple ~.
 Find ~simple-easy-clojure-hello~ and Ret to run the command.
 
 After a bit a cider repl buffer should pop up.
@@ -36,14 +36,14 @@ If you lost where you are type ~C-x b~ to get a list of current buffers
 Now checkout the file =hello.clj=.
 Here are your spaceships controls:
 
-~cider-eval-defun-at-point~ ~C-M-x~ (that is ctrl + alt + x)
+~cider-eval-defun-at-point~ ~C-M-x~ (that is ctr + alt + x)
 ~cider-eval-last-sexp~ ~C-x C-e~
 ~cider-load-file~ ~C-c C-l~
 
 * Useful commands
 
-1) The default emacs editing and movement commands
-    I searched emacs cheat sheet and this popped up:
+1) The default Emacs editing and movement commands
+    I searched Emacs cheat sheet and this popped up:
     https://www.shortcutfoo.com/app/dojos/emacs/cheatsheet
 
 2) more commands (find them with M-x)
@@ -65,9 +65,9 @@ describe-keymap
 - no projectile.el
 
 ** keep the amount of packages low
-- preferably a newcommer could look at the config and not get lost
+- preferably a newcomer could look at the config and not get lost
 
-** normie friendly where feasable
+** normie friendly where feasible
 - works on windows
 - disable lock files
 - no evil by default
@@ -80,17 +80,17 @@ The exception to this is ~use-package~ and ~straight.el~. I think those are exce
 
 *** Use-package
 - commonly used
-- Readmes commonly have a use-packge snippet
+- Readmes commonly have a use-package snippet
 
 ** use vertico + orderless + consult
 Simple, focused and powerful.
 
 ** simple mode line
-I am worried that a big modeline with vcs display would be slow on windows.
-I still desire a modern and minimalistic style, hence
+I am worried that a big mode-line with vcs display would be slow on windows.
+I still desire a modern and minimalist style, hence
 https://github.com/jessiehildebrandt/mood-line (my fork https://github.com/benjamin-asdf/mood-line)
 
-* Awknoledgements
+*  Acknowledgments
 
 Thanks to David Wilson for https://github.com/daviwil/emacs-from-scratch.
 Thanks also to Gavin https://github.com/Gavinok/emacs.d for inspiration.

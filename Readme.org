@@ -91,7 +91,7 @@ https://github.com/benjamin-asdf/dotfiles/tree/master/mememacs/.emacs-mememacs.d
 ** keep the amount of packages low
 - preferably a newcomer could look at the config and not get lost
 
-** normie friendly where feasible
+** novice friendly where feasible
 - works on windows
 - disable lock files
 - no evil by default

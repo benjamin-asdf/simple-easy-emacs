@@ -75,7 +75,8 @@ describe-keymap
 
 ** no config abstractions
 
-I see users of doom getting into the doom way. I am not sure how much this helps you in your emacs journey.
+I see users of config frameworks learning the way of the config
+framework, I am not sure how much this helps you in your emacs journey.
 The exception to this is ~use-package~ and ~straight.el~. I think those are excellent.
 
 *** Use-package

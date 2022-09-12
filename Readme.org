@@ -14,11 +14,13 @@ If you do not have an Emacs config yet and you want to start out with
   git clone https://github.com/benjamin-asdf/simple-easy-emacs.git .emacs.d
 #+end_src
 
-*** windows
+*** windows (vista and higher)
+
+first intall emacs. Here is a [[https://lucidmanager.org/productivity/emacs-windows/][guide]]
 
 #+begin_src shell
   cd
-  cd Appdata/Roaming/
+  cd AppData/Roaming/
   git clone https://github.com/benjamin-asdf/simple-easy-emacs.git .emacs.d
 #+end_src
 
@@ -84,7 +86,6 @@ You can find those on github, check their readme:
 
 https://github.com/benjamin-asdf/dotfiles/tree/master/mememacs/.emacs-mememacs.d
 
-
 * Principles
 
 ** stick to defaults
@@ -126,15 +127,25 @@ I am not sure if a big mode line with vsc element might be slow on windows.
 I still desire a modern and minimalist style, hence
 https://github.com/jessiehildebrandt/mood-line (my fork https://github.com/benjamin-asdf/mood-line)
 
-*  Acknowledgments
+* Acknowledgments
+
+The title is both a play both on the seminal talk [[https://www.infoq.com/presentations/Simple-Made-Easy/][Simple Made Easy]] by Rich
+Hickey, that has strong influence on the philosophy of clojure in practice.
+And a salute towards [[https://www.youtube.com/watch?v][a recent talk]] by [[https://github.com/flyingmachine][Daniel Higginbotham]] & [[https://github.com/plexus][Arne Brasseur]].
 
 Thanks to David Wilson for https://github.com/daviwil/emacs-from-scratch.
 Thanks also to Gavin https://github.com/Gavinok/emacs.d for inspiration.
 
-* Frameworks
+* Similar Projects
 
 You might start any of these up and feel it brimming your mind like a spaceship.
 
-** https://github.com/doomemacs/doomemacs certainly a force to be reckoned with
-** https://github.com/corgi-emacs/corgi simpler than doom
-** https://github.com/SystemCrafters/crafted-emacs
+** frameworks
+
+*** https://github.com/doomemacs/doomemacs certainly a force to be reckoned with
+*** https://github.com/corgi-emacs/corgi simpler than doom
+*** https://github.com/SystemCrafters/crafted-emacs
+
+** other
+
+[[https://github.com/flyingmachine/emacs-for-clojure][here is an older one]]

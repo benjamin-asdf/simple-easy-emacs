@@ -28,9 +28,13 @@ run emacs!
 
 First time takes a bit and are some (comp) warnings, this is fine.
 
-After emacs startup up, use `M-x` (that is alt + x) type =simle easy
-clojure=
-and Ret to run the command.
+After emacs startup up, use `M-x` (that is alt + x) type ~simple ~.
+Find ~simple-easy-clojure-hello~ and Ret to run the command.
+
+After a bit a cider repl buffer should pop up.
+Now checkout the file =hello.clj=.
+Use ~cider-eval-defun-at-point~ and ~cider-eval-last-sexp~ to eval code.
+
 
 
 * Principles

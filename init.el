@@ -186,17 +186,13 @@
     (user-error
      "Install clojure first! browsing to %s"
      (browse-url "https://clojure.org/guides/install_clojure")))
-  (make-directory "~/simple-easy-clojure-demo" t)
-  (let
-      ((default-directory "~/simple-easy-clojure-hello"))
-    (shell-command "echo '{}' > deps.ednss")
+  (let*
+      ((dir "~/simple-easy-clojure-hello")
+       (_ (make-directory dir t))
+       (default-directory dir))
+    (shell-command "echo '{}' > deps.edn")
     (make-directory "src" t)
-    (find-file "src/helo.clj")
+    (find-file "src/hello.clj")
     (when (eq (point-min) (point-max))
-      (insert "(ns hello)\n\n(defn main [s\n  (println \"hello world\"))\n\n\n;; this is a Rich comment, use it to try out pieces of code while you develop.\n(comment\n  (def rand-num (rand-int 10))\n  (println \"Here is a random number: \" rand-num))"))
-    (cider-jack-in-clj))))
-
-
-;; (defun simple-cider-get-started ()
-;;   ()
-;;   )
+      (insert "(ns hello)\n\n(defn main []\n  (println \"hello world\"))\n\n\n;; this is a Rich comment, use it to try out pieces of code while you develop.\n(comment\n  (def rand-num (rand-int 10))\n  (println \"Here is a random number: \" rand-num))"))
+    (call-interactively #'cider-jack-in-clj))))

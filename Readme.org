@@ -97,22 +97,25 @@ https://github.com/benjamin-asdf/dotfiles/tree/master/mememacs/.emacs-mememacs.d
 - no evil by default
 - disable byte compile warnings
 
-** no config abstractions
+** not a framework
 
-I see users of config frameworks learning the way of the config
-framework,
-I am not sure how much this helps you in your emacs journey.
-The exception to this is ~use-package~ and ~straight.el~. I think those are excellent.
+I see users of config frameworks learning the way of the config framework.
+Maybe that is fine but I have some hunch that the default emacs way
+makes you more intimate with the program and lisp, and this where the
+real power of emacs lies.
 
-*** Use-package
+*** Use-package + straight.el
 - commonly used
 - Readmes commonly have a use-package snippet
+- I like how straight.el brings github repos as first class citizens
+  sort of.
 
 ** use vertico + orderless + consult
 Simple, focused and powerful.
+These are virtually synonymous with "modern emacs config".
 
 ** simple mode line
-I am worried that a big mode-line with vcs display would be slow on windows.
+I am not sure if a big mode line with vsc element might be slow on windows.
 I still desire a modern and minimalist style, hence
 https://github.com/jessiehildebrandt/mood-line (my fork https://github.com/benjamin-asdf/mood-line)
 
@@ -121,9 +124,8 @@ https://github.com/jessiehildebrandt/mood-line (my fork https://github.com/benja
 Thanks to David Wilson for https://github.com/daviwil/emacs-from-scratch.
 Thanks also to Gavin https://github.com/Gavinok/emacs.d for inspiration.
 
-* Similar projects
+* Frameworks
 
-In my opinion these are more complex than simple-easy-emacs.
 You might start any of these up and feel it brimming your mind like a spaceship.
 
 ** https://github.com/doomemacs/doomemacs certainly a force to be reckoned with

@@ -14,6 +14,14 @@ If you do not have an Emacs config yet and you want to start out with
   git clone https://github.com/benjamin-asdf/simple-easy-emacs.git .emacs.d
 #+end_src
 
+*** windows
+
+#+begin_src shell
+  cd
+  cd Appdata/Roaming/
+  git clone https://github.com/benjamin-asdf/simple-easy-emacs.git .emacs.d
+#+end_src
+
 run Emacs!
 
 ** Just run it without changing your real config
@@ -41,7 +49,6 @@ Here are your spaceships controls:
 ~cider-load-file~ ~C-c C-l~
 
 Use ~C-M-i~ ~completion-in-region~  to completion candidates.
-
 
 * Useful commands
 

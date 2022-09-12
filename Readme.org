@@ -1,0 +1,56 @@
+I wanted a config that I can give to a beginner and the just have an
+emacs running with clojure setup.
+
+* Usage
+
+** As your mean emacs config
+
+If you do not have an emacs config yet and you want to start out with
+=simple-easy-emacs= :
+
+
+#+begin_src shell
+  git clone
+#+end_src
+
+** Just run it without changing your real config
+
+
+
+
+* Principles
+
+** stick to defaults
+- no evil
+- builtin theme
+- no projectile.el
+
+** keep the amount of packages low
+- preferably a newcommer could look at the config and not get lost
+
+** normie friendly where feasable
+- works on windows
+- disable lock files
+- no evil by default
+
+** no config abstractions
+
+I see users of doom getting into the doom way. I am not sure how much this helps you in your emacs journey.
+The exception to this is ~use-package~ and ~straight.el~. I think those are excellent.
+
+*** Use-package
+- commonly used
+- Readmes commonly have a use-packge snippet
+
+** use vertico + orderless + consult
+Simple, focused and powerful.
+
+** simple mode line
+I am worried that a big modeline with vcs display would be slow on windows.
+I still desire a modern and minimalistic style, hence
+https://github.com/jessiehildebrandt/mood-line (my fork https://github.com/benjamin-asdf/mood-line)
+
+* Awknoledgements
+
+Thanks to David Wilson for https://github.com/daviwil/emacs-from-scratch.
+Thanks also to Gavin https://github.com/Gavinok/emacs.d for inspiration.

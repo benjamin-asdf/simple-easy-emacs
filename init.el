@@ -180,12 +180,10 @@
 (defun simple-easy-clojure-hello ()
   (interactive)
   (unless
-      (string-match-p
-       "Clojure CLI version"
-       (shell-command-to-string "clj --version"))
+      (executable-find "clj")
     (user-error
      "Install clojure first! browsing to %s"
-     (browse-url "https://clojure.org/guides/install_clojure")))
+     (let ((url "https://clojure.org/guides/install_clojure")) (browse-url url) url)))
   (let*
       ((dir "~/simple-easy-clojure-hello")
        (_ (make-directory dir t))

@@ -40,6 +40,9 @@ Here are your spaceships controls:
 ~cider-eval-last-sexp~ ~C-x C-e~
 ~cider-load-file~ ~C-c C-l~
 
+Use ~C-M-i~ ~completion-in-region~  to completion candidates.
+
+
 * Useful commands
 
 1) The default Emacs editing and movement commands
@@ -57,12 +60,33 @@ describe-function
 describe-mode
 describe-keymap
 
+* Further packages to checkout:
+
+You can find those on github, check their readme:
+
+- marginalia (prettier completion candidates)
+- magit
+- evil + evil collection (you don't need doom to get vim binds)
+- flycheck, flycheck-clj-kondo (get clj-kondo aswell)
+- embark
+- winner
+- link-hint
+- corfu or company for completion popups
+
+** take config inspiration from mememacs:
+
+https://github.com/benjamin-asdf/dotfiles/tree/master/mememacs/.emacs-mememacs.d
+
+
 * Principles
 
 ** stick to defaults
 - no evil
 - builtin theme
 - no projectile.el
+- Yet, I do hesitate to configure builtins like show-paren-mode to give
+  a more modern and minimal look and feel
+
 
 ** keep the amount of packages low
 - preferably a newcomer could look at the config and not get lost
@@ -76,7 +100,8 @@ describe-keymap
 ** no config abstractions
 
 I see users of config frameworks learning the way of the config
-framework, I am not sure how much this helps you in your emacs journey.
+framework,
+I am not sure how much this helps you in your emacs journey.
 The exception to this is ~use-package~ and ~straight.el~. I think those are excellent.
 
 *** Use-package
@@ -95,3 +120,12 @@ https://github.com/jessiehildebrandt/mood-line (my fork https://github.com/benja
 
 Thanks to David Wilson for https://github.com/daviwil/emacs-from-scratch.
 Thanks also to Gavin https://github.com/Gavinok/emacs.d for inspiration.
+
+* Similar projects
+
+In my opinion these are more complex than simple-easy-emacs.
+You might start any of these up and feel it brimming your mind like a spaceship.
+
+** https://github.com/doomemacs/doomemacs certainly a force to be reckoned with
+** https://github.com/corgi-emacs/corgi simpler than doom
+** https://github.com/SystemCrafters/crafted-emacs

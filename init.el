@@ -175,4 +175,28 @@
 (use-package cider
   :config
   (setq cider-babashka-parameters "nrepl-server 0"
-	clojure-toplevel-inside-comment-form t))
+	clojure-toplevel-inside-comment-form t)
+
+(defun simple-easy-clojure-hello ()
+  (interactive)
+  (unless
+      (string-match-p
+       "Clojure CLI version"
+       (shell-command-to-string "clj --version"))
+    (user-error
+     "Install clojure first! browsing to %s"
+     (browse-url "https://clojure.org/guides/install_clojure")))
+  (make-directory "~/simple-easy-clojure-demo" t)
+  (let
+      ((default-directory "~/simple-easy-clojure-hello"))
+    (shell-command "echo '{}' > deps.ednss")
+    (make-directory "src" t)
+    (find-file "src/helo.clj")
+    (when (eq (point-min) (point-max))
+      (insert "(ns hello)\n\n(defn main [s\n  (println \"hello world\"))\n\n\n;; this is a Rich comment, use it to try out pieces of code while you develop.\n(comment\n  (def rand-num (rand-int 10))\n  (println \"Here is a random number: \" rand-num))"))
+    (cider-jack-in-clj))))
+
+
+;; (defun simple-cider-get-started ()
+;;   ()
+;;   )

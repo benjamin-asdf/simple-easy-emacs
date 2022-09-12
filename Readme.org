@@ -10,12 +10,27 @@ If you do not have an emacs config yet and you want to start out with
 
 
 #+begin_src shell
-  git clone
+  cd
+  git clone https://github.com/benjamin-asdf/simple-easy-emacs.git .emacs.d
 #+end_src
+
+run emacs!
 
 ** Just run it without changing your real config
 
+#+begin_src shell
+  git clone https://github.com/benjamin-asdf/simple-easy-emacs.git
+  cd simple-easy-emacs
+  ./run.sh
+#+end_src
 
+** get started
+
+First time takes a bit and are some (comp) warnings, this is fine.
+
+After emacs startup up, use `M-x` (that is alt + x) type =simle easy
+clojure=
+and Ret to run the command.
 
 
 * Principles
@@ -32,6 +47,7 @@ If you do not have an emacs config yet and you want to start out with
 - works on windows
 - disable lock files
 - no evil by default
+- disable byte compile warnings
 
 ** no config abstractions
 

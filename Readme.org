@@ -40,6 +40,24 @@ Here are your spaceships controls:
 ~cider-eval-last-sexp~ ~C-x C-e~
 ~cider-load-file~ ~C-c C-l~
 
+* Useful commands
+
+1) The default emacs editing and movement commands
+    I searched emacs cheat sheet and this popped up:
+    https://www.shortcutfoo.com/app/dojos/emacs/cheatsheet
+
+2) more commands (find them with M-x)
+
+consult-buffer
+window-left
+window-right etc
+describe-key
+describe-variable
+describe-function
+describe-mode
+describe-keymap
+
+
 * Principles
 
 ** stick to defaults

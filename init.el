@@ -160,7 +160,7 @@
      "Install clojure first! browsing to %s"
      (let ((url "https://clojure.org/guides/install_clojure")) (browse-url url) url)))
   (let*
-      ((dir "/tmp/simple-easy-clojure-hello")
+      ((dir (expand-file-name "simple-easy-clojure-hello" (temporary-file-directory)))
        (_ (make-directory dir t))
        (default-directory dir))
     (shell-command "echo '{}' > deps.edn")

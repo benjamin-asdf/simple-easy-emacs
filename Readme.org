@@ -69,6 +69,10 @@ describe-function
 describe-mode
 describe-keymap
 
+* Evil
+
+see [[file:doc/evil.org]]
+
 * Further packages to checkout:
 
 You can find those on github, check their readme:

@@ -1,0 +1,31 @@
+You can put this into init.el and now you have an evil setup.
+
+#+begin_src elisp
+(use-package evil
+  :init
+  (setq
+   evil-want-integration t
+   evil-want-keybinding nil
+   evil-move-cursor-back nil
+   evil-move-beyond-eol t
+   evil-want-fine-undo t)
+
+  :config
+  (evil-mode 1)
+  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+  (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-word)
+  (evil-set-initial-state 'messages-buffer-mode 'normal)
+  (evil-set-initial-state 'dashboard-mode 'normal)
+
+  (defadvice evil-show-registers
+      (after mm/evil-show-registers-adv activate)
+    (text-mode)))
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (setf evil-collection-mode-list
+	(remove 'lispy evil-collection-mode-list))
+  (evil-collection-init))
+#+end_src

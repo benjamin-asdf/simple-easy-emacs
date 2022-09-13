@@ -160,12 +160,12 @@
      "Install clojure first! browsing to %s"
      (let ((url "https://clojure.org/guides/install_clojure")) (browse-url url) url)))
   (let*
-      ((dir "~/simple-easy-clojure-hello")
+      ((dir "/tmp/simple-easy-clojure-hello")
        (_ (make-directory dir t))
        (default-directory dir))
     (shell-command "echo '{}' > deps.edn")
     (make-directory "src" t)
     (find-file "src/hello.clj")
     (when (eq (point-min) (point-max))
-      (insert "(ns hello)\n\n(defn main []\n  (println \"hello world\"))\n\n\n;; this is a Rich comment, use it to try out pieces of code while you develop.\n(comment\n  (def rand-num (rand-int 10))\n  (println \"Here is a random number: \" rand-num))"))
+      (insert "(ns hello)\n\n(defn main []\n  (println \"hello world\"))\n\n\n;; this is a Rich comment, use it to try out pieces of code while you develop.\n(comment\n  (def rand-num (rand-int 10))\n  (println \"Here is the secret number: \" rand-num))"))
     (call-interactively #'cider-jack-in-clj))))

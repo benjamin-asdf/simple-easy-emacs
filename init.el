@@ -25,8 +25,6 @@
 
 (straight-use-package 'use-package)
 
-(require 'use-package)
-
 (setf
  straight-vc-git-default-protocol 'https
  straight-use-package-by-default t

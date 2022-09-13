@@ -10,17 +10,6 @@
 
 (add-hook 'emacs-startup-hook #'efs/display-startup-time)
 
-;; Initialize package sources
-;; (require 'package)
-;; (package-initialize)
-;; (unless package-archive-contents
-;;   (package-refresh-contents))
-  ;; Initialize use-package on non-Linux platforms
-;; TODO: do I need this for winodws?
-;; (unless (package-installed-p 'use-package)
-;;   (package-install 'use-package))
-
-
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
@@ -49,34 +38,64 @@
         ("org" . "https://orgmode.org/elpa/")
         ("elpa" . "https://elpa.gnu.org/packages/")))
 
-(setq inhibit-startup-message t)
+(use-package emacs
+  :config
+  (load-theme 'modus-vivendi)
+  (defun crm-indicator (args)
+    (cons (format "[CRM%s] %s"
+		  (replace-regexp-in-string
+		   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+		   crm-separator)
+		  (car args))
+	  (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+  (setq inhibit-startup-message t)
 
-(scroll-bar-mode -1)        ; Disable visible scrollbar
-(tool-bar-mode -1)          ; Disable the toolbar
-(tooltip-mode -1)           ; Disable tooltips
-(set-fringe-mode 10)        ; Give some breathing room
+  (scroll-bar-mode -1)			; Disable visible scrollbar
+  (tool-bar-mode -1)			; Disable the toolbar
+  (tooltip-mode -1)			; Disable tooltips
+  (set-fringe-mode 8)
+  (menu-bar-mode -1)			; Disable the menu bar
+  (setq visible-bell t)
+  (blink-cursor-mode -1)
+  (column-number-mode)
+  ;; (setf display-line-numbers-type 'relative)
+  (global-display-line-numbers-mode t)
 
-(menu-bar-mode -1)            ; Disable the menu bar
+  ;; Disable line numbers for some modes
+  (dolist (mode '(org-mode-hook
+                  term-mode-hook
+                  shell-mode-hook
+                  treemacs-mode-hook
+                  eshell-mode-hook))
+    (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-(blink-cursor-mode -1)
+  (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+  (setq use-dialog-box nil)
+  (defalias 'yes-or-no-p 'y-or-n-p)
+  (setq create-lockfiles nil)
 
-;; Set up the visible bell
-(setq visible-bell t)
+  ;; Do not allow the cursor in the minibuffer prompt
+  (setq minibuffer-prompt-properties
+	'(read-only t cursor-intangible t face minibuffer-prompt))
+  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
+  (setq inhibit-startup-message t
+	initial-scratch-message "")
+;;; Show matching parenthesis
+  (show-paren-mode 1)
+;;; By default, there’s a small delay before showing a matching parenthesis. Set
+;;; it to 0 to deactivate.
+  (setq show-paren-delay 0)
+  (setq show-paren-when-point-inside-paren t)
 
+  (setq show-paren-style 'parenthesis)
+;;; Electric Pairs to auto-complete () [] {} "" etc. It works on regions.
 
-(column-number-mode)
-(global-display-line-numbers-mode t)
-
-;; Disable line numbers for some modes
-(dolist (mode '(org-mode-hook
-                term-mode-hook
-                shell-mode-hook
-                treemacs-mode-hook
-                eshell-mode-hook))
-  (add-hook mode (lambda () (0 display-line-numbers-mode))))
-
-;; Make ESC quit prompts
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+  (electric-pair-mode)
+  (setq redisplay-skip-fontification-on-input t
+	fast-but-imprecise-scrolling t)
+  (global-so-long-mode 1)
+  :bind ("<f5>" . modus-themes-toggle))
 
 (use-package mood-line
   :straight (:host github :repo "benjamin-asdf/mood-line")
@@ -101,6 +120,7 @@
    completion-category-overrides '((file (styles partial-completion)))))
 
 (require 'dired)
+
 ;; https://github.com/Gavinok/emacs.d
 (use-package consult
   :bind (("C-x b"       . consult-buffer)
@@ -128,49 +148,6 @@
   (completion-in-region-function #'consult-completion-in-region)
   :config
   (recentf-mode t))
-
-(use-package emacs
-  :config
-  (load-theme 'modus-vivendi)
-  (defun crm-indicator (args)
-    (cons (format "[CRM%s] %s"
-		  (replace-regexp-in-string
-		   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
-		   crm-separator)
-		  (car args))
-	  (cdr args)))
-  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
-
-  ;; Do not allow the cursor in the minibuffer prompt
-  (setq minibuffer-prompt-properties
-	'(read-only t cursor-intangible t face minibuffer-prompt))
-  (add-hook 'minibuffer-setup-hook #'cursor-intangible-mode)
-
-  (setq use-dialog-box nil)
-  ;; Give some breathing room
-  (set-fringe-mode 10)
-  (setq inhibit-startup-message t
-	initial-scratch-message "")
-
-;;; Show matching parenthesis
-  (show-paren-mode 1)
-;;; By default, there’s a small delay before showing a matching parenthesis. Set
-;;; it to 0 to deactivate.
-  (setq show-paren-delay 0)
-  (setq show-paren-when-point-inside-paren t)
-  (setq show-paren-style 'parenthesis)
-
-;;; Electric Pairs to auto-complete () [] {} "" etc. It works on regions.
-  (electric-pair-mode)
-  (setq redisplay-skip-fontification-on-input t)
-  (setq fast-but-imprecise-scrolling t)
-  (global-so-long-mode 1)
-
-  (defalias 'yes-or-no-p 'y-or-n-p)
-
-  (setq create-lockfiles nil)
-
-  :bind ("<f5>" . modus-themes-toggle))
 
 (use-package cider
   :config

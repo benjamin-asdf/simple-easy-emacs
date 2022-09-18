@@ -106,7 +106,14 @@
   (vertico-mode)
   (setq vertico-scroll-margin 0)
   (setq vertico-count 20)
-  (setq vertico-cycle t))
+  (setq vertico-cycle t)
+  :config
+  (add-to-list 'load-path (expand-file-name "straight/repos/vertico/extensions/" straight-base-dir))
+  (when (require 'vertico-quick)
+    (bind-keys :package vertico-quick :map vertico-map
+	       ("C-k" . vertico-quick-exit)
+	       ("M-q" . vertico-quick-insert)
+	       ("M-a" . vertico-quick-jump))))
 
 (use-package savehist :init (savehist-mode))
 

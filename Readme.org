@@ -1,4 +1,4 @@
-I wanted a config that I can give to a anyoneand the just have an
+I wanted a config that I can give to a anyone and they just have an
 Emacs running with Clojure setup.
 
 * Usage

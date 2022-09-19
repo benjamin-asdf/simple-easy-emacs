@@ -152,20 +152,28 @@
   (setq cider-babashka-parameters "nrepl-server 0"
 	clojure-toplevel-inside-comment-form t)
 
-(defun simple-easy-clojure-hello ()
-  (interactive)
-  (unless
-      (executable-find "clj")
-    (user-error
-     "Install clojure first! browsing to %s"
-     (let ((url "https://clojure.org/guides/install_clojure")) (browse-url url) url)))
-  (let*
-      ((dir (expand-file-name "simple-easy-clojure-hello" (temporary-file-directory)))
-       (_ (make-directory dir t))
-       (default-directory dir))
-    (shell-command "echo '{}' > deps.edn")
-    (make-directory "src" t)
-    (find-file "src/hello.clj")
-    (when (eq (point-min) (point-max))
-      (insert "(ns hello)\n\n(defn main []\n  (println \"hello world\"))\n\n\n;; this is a Rich comment, use it to try out pieces of code while you develop.\n(comment\n  (def rand-num (rand-int 10))\n  (println \"Here is the secret number: \" rand-num))"))
-    (call-interactively #'cider-jack-in-clj))))
+  (cider-register-cljs-repl-type 'nbb-or-scittle-or-joyride "(+ 1 2 3)")
+
+  (defun mm/cider-connected-hook ()
+    (when (eq 'nbb-or-scittle-or-joyride cider-cljs-repl-type)
+      (setq-local cider-show-error-buffer nil)
+      (cider-set-repl-type 'cljs)))
+  (add-hook 'cider-connected-hook #'mm/cider-connected-hook)
+
+  (defun simple-easy-clojure-hello ()
+    (interactive)
+    (unless
+	(executable-find "clj")
+      (user-error
+       "Install clojure first! browsing to %s"
+       (let ((url "https://clojure.org/guides/install_clojure")) (browse-url url) url)))
+    (let*
+	((dir (expand-file-name "simple-easy-clojure-hello" (temporary-file-directory)))
+	 (_ (make-directory dir t))
+	 (default-directory dir))
+      (shell-command "echo '{}' > deps.edn")
+      (make-directory "src" t)
+      (find-file "src/hello.clj")
+      (when (eq (point-min) (point-max))
+	(insert "(ns hello)\n\n(defn main []\n  (println \"hello world\"))\n\n\n;; this is a Rich comment, use it to try out pieces of code while you develop.\n(comment\n  (def rand-num (rand-int 10))\n  (println \"Here is the secret number: \" rand-num))"))
+      (call-interactively #'cider-jack-in-clj))))

@@ -148,7 +148,6 @@
   :config
   (recentf-mode t))
 
-
 (use-package marginalia
   :ensure t
   :config

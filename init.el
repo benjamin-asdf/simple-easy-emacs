@@ -121,6 +121,7 @@
 
 ;; https://github.com/Gavinok/emacs.d
 (use-package consult
+  :ensure t
   :bind (("C-x b"       . consult-buffer)
          ("C-x C-k C-k" . consult-kmacro)
          ("M-y"         . consult-yank-pop)
@@ -176,7 +177,6 @@
   :ensure t ; only need to install it, embark loads it after consult if found
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
-
 
 (use-package cider
   :config

@@ -113,7 +113,7 @@
 (use-package orderless
   :init
   (setq
-   completion-styles '(orderless)
+   completion-styles '(orderless basic)
    completion-category-defaults nil
    completion-category-overrides '((file (styles partial-completion)))))
 
@@ -153,7 +153,11 @@
   :config
   (marginalia-mode))
 
-;; quickstart from here
+(use-package embark-consult
+  :ensure t
+  :hook
+  (embark-collect-mode . consult-preview-at-point-mode))
+
 ;; https://github.com/oantolin/embark
 (use-package embark
   :ensure t
@@ -170,12 +174,6 @@
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                  nil
                  (window-parameters (mode-line-format . none)))))
-
-;; Consult users will also want the embark-consult package.
-(use-package embark-consult
-  :ensure t ; only need to install it, embark loads it after consult if found
-  :hook
-  (embark-collect-mode . consult-preview-at-point-mode))
 
 (use-package cider
   :config
@@ -206,4 +204,32 @@
       (find-file "src/hello.clj")
       (when (eq (point-min) (point-max))
 	(insert "(ns hello)\n\n(defn main []\n  (println \"hello world\"))\n\n\n;; this is a Rich comment, use it to try out pieces of code while you develop.\n(comment\n  (def rand-num (rand-int 10))\n  (println \"Here is the secret number: \" rand-num))"))
-      (call-interactively #'cider-jack-in-clj))))
+      (call-interactively #'cider-jack-in-clj)))
+
+  ;; this is a simpler cider complete that
+  ;; that does everything I need together with orderless.
+  ;; also complete locals
+
+  (defun mm/cider-complete-at-point ()
+    "Complete the symbol at point."
+    (when (and (cider-connected-p)
+	       (not (cider-in-string-p)))
+      (when-let*
+	  ((bounds
+	    (bounds-of-thing-at-point
+	     'symbol))
+	   (beg (car bounds))
+	   (end (cdr bounds))
+	   (completion
+	    (append
+	     (cider-complete
+	      (buffer-substring beg end))
+	     (get-text-property (point) 'cider-locals))))
+	(list
+	 beg
+	 end
+	 (completion-table-dynamic
+	  (lambda (_) completion))
+	 :annotation-function #'cider-annotate-symbol))))
+
+  (advice-add 'cider-complete-at-point :override #'mm/cider-complete-at-point))

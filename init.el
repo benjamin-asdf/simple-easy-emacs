@@ -175,6 +175,26 @@
                  nil
                  (window-parameters (mode-line-format . none)))))
 
+(use-package bash-completion
+  :init
+  (autoload 'bash-completion-dynamic-complete
+    "bash-completion"
+    "BASH completion hook")
+  (add-hook 'shell-dynamic-complete-functions
+            #'bash-completion-dynamic-complete)
+
+  :config
+  (defun bash-completion-capf-1 (bol)
+    (bash-completion-dynamic-complete-nocomint (funcall bol) (point) t))
+  (defun bash-completion-eshell-capf ()
+    (bash-completion-capf-1 (lambda () (save-excursion (eshell-bol) (point)))))
+  (defun bash-completion-capf ()
+    (bash-completion-capf-1 #'point-at-bol))
+  (add-hook
+   'sh-mode-hook
+   (defun mm/add-bash-completion ()
+     (add-hook 'completion-at-point-functions #'bash-completion-capf nil t))))
+
 (use-package cider
   :config
   (setq cider-babashka-parameters "nrepl-server 0"

@@ -1,3 +1,6 @@
+;; -*- lexical-binding: t; -*-
+
+
 ;; The default is 800 kilobytes.  Measured in bytes.
 (setq gc-cons-threshold (* 50 1000 1000))
 
@@ -93,6 +96,51 @@
   (setq redisplay-skip-fontification-on-input t
 	fast-but-imprecise-scrolling t)
   (global-so-long-mode 1)
+  (setq async-shell-command-buffer 'new-buffer)
+
+  (defun path-slug (dir)
+    "Returns the initials of `dir`s path,
+with the last part appended fully
+
+Example:
+
+(path-slug \"/foo/bar/hello\")
+=> \"f/b/hello\" "
+    (let* ((path (replace-regexp-in-string "\\." "" dir))
+	   (path (split-string path "/" t))
+	   (path-s (mapconcat
+		    (lambda (it)
+		      (cl-subseq it 0 1))
+		    (nbutlast (copy-sequence path) 1)
+		    "/"))
+	   (path-s (concat
+		    path-s
+		    "/"
+		    (car (last path)))))
+      path-s))
+
+  (defun mm/put-command-in-async-buff-name (f &rest args)
+    (let* ((path-s (path-slug default-directory))
+	   (command (car args))
+	   (buffname (concat path-s " " command))
+	   (shell-command-buffer-name-async
+	    (format
+	     "*async-shell-command %s*"
+	     (string-trim
+	      (substring buffname 0 (min (length buffname) 50))))))
+      (apply f args)))
+
+  (advice-add 'shell-command :around #'mm/put-command-in-async-buff-name)
+
+  (add-hook 'comint-mode-hook
+	    (defun mm/do-hack-dir-locals (&rest _)
+	      (hack-dir-local-variables-non-file-buffer)))
+
+  (advice-add #'start-process-shell-command :before #'mm/do-hack-dir-locals)
+
+  (advice-add 'compile :filter-args
+	      (defun mm/always-use-comint-for-compile (args) `(,(car args) t)))
+
   :bind ("<f5>" . modus-themes-toggle))
 
 (use-package mood-line

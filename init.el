@@ -243,6 +243,10 @@ Example:
    (defun mm/add-bash-completion ()
      (add-hook 'completion-at-point-functions #'bash-completion-capf nil t))))
 
+(use-package cape
+  :init
+  (add-to-list 'completion-at-point-functions #'cape-file))
+
 (use-package cider
   :config
   (setq cider-babashka-parameters "nrepl-server 0"

@@ -305,3 +305,34 @@ Example:
 	 :annotation-function #'cider-annotate-symbol))))
 
   (advice-add 'cider-complete-at-point :override #'mm/cider-complete-at-point))
+
+(use-package chatgpt-shell
+  :straight nil
+  :load-path "~/repos/chatgpt-shell/"
+  :after openai-api
+  :config
+  (define-key openai-api-keymap (kbd "a") #'chatgpt-shell-shell-add-context-file)
+  (define-key openai-api-keymap (kbd "A") #'chatgpt-clear-some-contexts)
+  (define-key openai-api-keymap (kbd "RET") #'chatgpt-shell)
+  (define-key openai-api-keymap (kbd "b") #'chatgpt-shell-ibuffer-buffers)
+  (define-key openai-api-keymap (kbd "B") #'chatgpt-jump-to-context-shell)
+  (setq chatgpt-shell-model-version "gpt-3.5-turbo")
+  (setq chatgpt-shell-openai-key
+        (let ((s))
+          (lambda ()
+            (or s (user-error "need to set openai key")))))
+  (setq-default
+   chatgpt-additional-prompts
+   (lambda ()
+     `(((role . "system")
+        (content . ,(format
+                     "The user is a an aspiring programmer hacker engineer. Lisp and Clojure.
+You never appologize for confusions because the user thinks that is a waste of time.
+Skip saying open terminal. You can say \"run\". Or just output shell snippets and terminal is implicit.
+Whenever you output updated code for the user, please only say the lines that changed, not the whole block.
+The user knows how to read manuals.
+uname -a: %s
+emacs version: %s"
+                     (shell-command-to-string
+                      "uname -a")
+                     (emacs-version))))))))

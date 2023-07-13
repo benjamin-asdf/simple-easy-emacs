@@ -251,15 +251,7 @@ Example:
   :config
   (setq cider-babashka-parameters "nrepl-server 0"
 	clojure-toplevel-inside-comment-form t)
-
-  (cider-register-cljs-repl-type 'nbb-or-scittle-or-joyride "(+ 1 2 3)")
-
-  (defun mm/cider-connected-hook ()
-    (when (eq 'nbb-or-scittle-or-joyride cider-cljs-repl-type)
-      (setq-local cider-show-error-buffer nil)
-      (cider-set-repl-type 'cljs)))
-  (add-hook 'cider-connected-hook #'mm/cider-connected-hook)
-
+  
   (defun simple-easy-clojure-hello ()
     (interactive)
     (unless

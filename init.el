@@ -1,22 +1,12 @@
 ;; -*- lexical-binding: t; -*-
 
-
-;; The default is 800 kilobytes.  Measured in bytes.
-(setq gc-cons-threshold (* 50 1000 1000))
-
-(defun efs/display-startup-time ()
-  (message "Emacs loaded in %s with %d garbage collections."
-           (format "%.2f seconds"
-                   (float-time
-                     (time-subtract after-init-time before-init-time)))
-           gcs-done))
-
-(add-hook 'emacs-startup-hook #'efs/display-startup-time)
-
 (defvar bootstrap-version)
 (let ((bootstrap-file
-       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
-      (bootstrap-version 6))
+       (expand-file-name
+        "straight/repos/straight.el/bootstrap.el"
+        (or (bound-and-true-p straight-base-dir)
+            user-emacs-directory)))
+      (bootstrap-version 7))
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
         (url-retrieve-synchronously
@@ -26,7 +16,34 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
+;; borrowed with love from
+;;; https://gitlab.com/ambrevar/dotfiles
+;;; see COPYING in the root of this repo
+
+;;; Speed up init.
+;;; Temporarily reduce garbage collection during startup. Inspect `gcs-done'.
+(defun ambrevar/reset-gc-cons-threshold ()
+  (setq gc-cons-threshold (car (get 'gc-cons-threshold 'standard-value))
+        gc-cons-percentage 0.1))
+(setq gc-cons-threshold most-positive-fixnum ; 2^61 bytes
+      gc-cons-percentage 0.6)
+(add-hook 'after-init-hook 'ambrevar/reset-gc-cons-threshold)
+
+;;; Temporarily disable the file name handler.
+(setq default-file-name-handler-alist file-name-handler-alist)
+(setq file-name-handler-alist nil)
+(defun ambrevar/reset-file-name-handler-alist ()
+  (setq file-name-handler-alist default-file-name-handler-alist))
+(add-hook 'after-init-hook 'ambrevar/reset-file-name-handler-alist)
+
+;;; Avoid the "loaded old bytecode instead of newer source" pitfall.
+(setq load-prefer-newer t)
+(add-to-list 'load-path (expand-file-name "lisp/" user-emacs-directory))
+
+(setf native-comp-async-report-warnings-errors 'silent)
+
 (straight-use-package 'use-package)
+(require 'use-package)
 
 (setf
  straight-vc-git-default-protocol 'https

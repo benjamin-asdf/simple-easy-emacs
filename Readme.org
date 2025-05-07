@@ -112,9 +112,6 @@ https://github.com/benjamin-asdf/dotfiles/tree/master/mememacs/.emacs-mememacs.d
 ** not a framework
 
 I see users of config frameworks learning the way of the config framework.
-Maybe that is fine but I have some hunch that the default emacs way
-makes you more intimate with the program and lisp, and this where the
-real power of emacs lies.
 
 *** Use-package + straight.el
 - commonly used
@@ -127,8 +124,8 @@ Simple, focused and powerful.
 These are virtually synonymous with "modern emacs config".
 
 ** simple mode line
-I am not sure if a big mode line with vsc element might be slow on windows.
-I still desire a modern and minimalist style, hence
+
+I desire a modern and minimalist style, hence
 https://github.com/jessiehildebrandt/mood-line (my fork https://github.com/benjamin-asdf/mood-line)
 
 * Acknowledgments
